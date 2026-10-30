@@ -1,6 +1,6 @@
 # СРС №6. Виртуальный стенд Arduino: HC-SR04, три светодиода, кнопка
 
-**Среда:** Wokwi, проект `simulator/diagram.json`, ссылка: https://wokwi.com/projects/479308748001157121
+**Среда:** Wokwi, проект `simulator/diagram.json`, ссылка: https://wokwi.com/projects/479311161934984193
 **Студент:** Кенжехан Меруерт Сабитқызы   **Дата:** 30.10.2026
 
 ## Навигация
