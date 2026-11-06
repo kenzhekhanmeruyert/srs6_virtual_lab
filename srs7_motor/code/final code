@@ -1,0 +1,128 @@
+const int trigPin = 9;
+const int echoPin = 10;
+
+const int buttonPin = 2;
+
+const int redLED = 13;
+const int yellowLED = 12;
+const int greenLED = 11;
+
+const int ENA = 3;
+const int IN1 = 5;
+const int IN2 = 6;
+
+bool systemOn = false;
+bool lastButtonState = HIGH;
+
+void stopMotor() {
+  analogWrite(ENA, 0);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+}
+
+void stopSystem() {
+  stopMotor();
+
+  digitalWrite(redLED, LOW);
+  digitalWrite(yellowLED, LOW);
+  digitalWrite(greenLED, LOW);
+}
+
+void runMotor(int speedValue) {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, speedValue);
+}
+
+float getDistance() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH, 30000);
+
+  if (duration == 0) {
+    return -1;
+  }
+
+  return duration * 0.0343 / 2;
+}
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  pinMode(buttonPin, INPUT_PULLUP);
+
+  pinMode(redLED, OUTPUT);
+  pinMode(yellowLED, OUTPUT);
+  pinMode(greenLED, OUTPUT);
+
+  pinMode(ENA, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+
+  stopSystem();
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  bool buttonState = digitalRead(buttonPin);
+
+  if (lastButtonState == HIGH && buttonState == LOW) {
+    systemOn = !systemOn;
+    delay(50);
+  }
+
+  lastButtonState = buttonState;
+
+  if (!systemOn) {
+    stopSystem();
+    return;
+  }
+
+  float distance = getDistance();
+
+  if (distance < 0) {
+    stopSystem();
+    Serial.println("Sensor error");
+    return;
+  }
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  Serial.print("System ON: ");
+Serial.println(systemOn);
+
+Serial.print("Distance: ");
+Serial.println(distance);
+
+  if (distance < 20) {
+    stopMotor();
+
+    digitalWrite(redLED, HIGH);
+    digitalWrite(yellowLED, LOW);
+    digitalWrite(greenLED, LOW);
+  }
+  else if (distance <= 50) {
+    runMotor(120);
+
+    digitalWrite(redLED, LOW);
+    digitalWrite(yellowLED, HIGH);
+    digitalWrite(greenLED, LOW);
+  }
+  else {
+    runMotor(255);
+
+    digitalWrite(redLED, LOW);
+    digitalWrite(yellowLED, LOW);
+    digitalWrite(greenLED, HIGH);
+  }
+
+  delay(100);
+}
