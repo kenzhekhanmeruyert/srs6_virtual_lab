@@ -15,12 +15,12 @@
 3. [code/memory_hog.ino](code/memory_hog.ino): пять отдельных запусков с уровнями 0–4.
 
 ## Ссылки на Wokwi
-- Рекурсия: [вставить ссылку после запуска].
-- Безопасная итерация: [вставить ссылку после запуска].
-- Memory Hog: [вставить ссылку после запуска].
+- Рекурсия (Crash): [открыть Wokwi](https://wokwi.com/projects/480585462526784513).
+- Безопасная итерация (Safe): [открыть Wokwi](https://wokwi.com/projects/480585568857667585).
+- Memory Hog: [открыть Wokwi](https://wokwi.com/projects/480585549870044161).
 
 ## Доказательства
-В папку `screenshots/` после запуска добавить:
+В папке `screenshots/` сохранены:
 - `crash_result.png`: монитор аварийного опыта.
 - `safe_result.png`: 10000 и SAFE FINISH.
 - `memory_hog_result.png`: показательный результат Memory Hog.
