@@ -1,4 +1,3 @@
-// SRS 8: recursion and stack exhaustion. Run ONLY in Wokwi.
 volatile uint8_t controlValue = 0;
 
 __attribute__((noinline))
@@ -12,7 +11,6 @@ void deepRecursion(uint16_t depth) {
 
   deepRecursion(depth + 1);
 
-  // Operation after the recursive call prevents tail-call optimization.
   controlValue ^= localData[0];
 }
 
