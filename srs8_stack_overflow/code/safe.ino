@@ -1,4 +1,3 @@
-// SRS 8: bounded iteration and approximately constant stack usage.
 void setup() {
   Serial.begin(115200);
   delay(500);
